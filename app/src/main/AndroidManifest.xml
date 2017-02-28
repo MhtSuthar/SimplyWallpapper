@@ -27,6 +27,7 @@
         </activity>
         <activity android:name=".dashboard.WallDetailActivity"  android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".dashboard.CategoryDetailActivity"  android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".dashboard.HelpActivity"  android:theme="@style/AppTheme.NoActionBar"></activity>
 
 
     </application>
