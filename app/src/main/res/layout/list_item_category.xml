@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imgHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:transitionName="profile"
+        android:src="@drawable/animal"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_alignBottom="@+id/imgHeader"
+        android:background="@color/colorSemiTransparent"
+        />
+
+    <TextView
+        android:id="@+id/txtCategory"
+        android:layout_width="wrap_content"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@drawable/round_corner_transparent_bg_with_white_border"
+        android:layout_centerInParent="true"
+        android:textAllCaps="true"
+        android:text="Title"
+        android:textColor="@android:color/white"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
