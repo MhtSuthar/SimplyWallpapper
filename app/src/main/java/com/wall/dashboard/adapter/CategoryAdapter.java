@@ -33,10 +33,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     class ViewHolder0 extends RecyclerView.ViewHolder {
         public ImageView imgHeader;
         TextView mTxtCategory;
+        View mView;
         public ViewHolder0(View itemView) {
             super(itemView);
             imgHeader = (ImageView) itemView.findViewById(R.id.imgHeader);
             mTxtCategory = (TextView) itemView.findViewById(R.id.txtCategory);
+            mView = itemView.findViewById(R.id.viewDivider);
         }
     }
 
@@ -56,6 +58,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         final ViewHolder0 viewHolder0 = (ViewHolder0) holder;
         viewHolder0.imgHeader.getLayoutParams().height = (int) (categoryFragment.mHeight/3);
         viewHolder0.imgHeader.requestLayout();
+        viewHolder0.mView.getLayoutParams().height = (int) (categoryFragment.mHeight/3);
+        viewHolder0.mView.requestLayout();
         viewHolder0.mTxtCategory.setText(mListCategory.get(position));
         Glide.with(context).load(mCategoryImg[position]).into(viewHolder0.imgHeader);
         viewHolder0.imgHeader.setOnClickListener(new View.OnClickListener() {
