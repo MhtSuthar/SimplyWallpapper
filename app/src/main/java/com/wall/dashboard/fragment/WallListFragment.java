@@ -151,6 +151,7 @@ public class WallListFragment extends BaseFragment {
                         List<Wallpaper.Hit> result = users.getHits();
                         if(result.size()>0){
                             //add loaded data
+                            mWallList.clear();
                             mWallList.addAll(result);
                         }else{//result size 0 means there is no more data available at server
                             mWallAdapter.setMoreDataAvailable(false);
