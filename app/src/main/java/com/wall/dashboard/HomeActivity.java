@@ -1,6 +1,7 @@
 package com.wall.dashboard;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -13,6 +14,7 @@ import com.wall.R;
 import com.wall.base.BaseActivity;
 import com.wall.dashboard.fragment.CategoryFragment;
 import com.wall.dashboard.fragment.WallListFragment;
+import com.wall.utilz.Constants;
 
 public class HomeActivity extends BaseActivity {
 
@@ -20,12 +22,15 @@ public class HomeActivity extends BaseActivity {
     private ViewPager mViewPager;
     public WallListFragment mWallListFragment;
     public CategoryFragment mCategoryFragment;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        startActivity(new Intent(this, HelpActivity.class));
+        sharedPreferences = getSharedPreferences(Constants.KEY_PREFERENCE, MODE_PRIVATE);
+        if(!sharedPreferences.getBoolean(Constants.KEY_HELP_SCREEN_APPEAR, false))
+            startActivity(new Intent(this, HelpActivity.class));
         fullScreen();
         init();
         setPagerAdapter();

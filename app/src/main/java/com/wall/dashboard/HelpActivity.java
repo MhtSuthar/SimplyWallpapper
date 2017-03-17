@@ -1,6 +1,5 @@
 package com.wall.dashboard;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,8 +41,8 @@ public class HelpActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
         mIndicator.setRadius(10);
-        mIndicator.setStrokeColor(getResources().getColor(R.color.colorAccent));
-        mIndicator.setFillColor(getResources().getColor(R.color.colorPrimary));
+        mIndicator.setStrokeColor(getResources().getColor(R.color.colorPrimary));
+        mIndicator.setFillColor(getResources().getColor(R.color.colorAccent));
         setPagerAdapter();
     }
 

@@ -18,8 +18,8 @@ import com.wall.dashboard.HelpActivity;
 
 public class HelpPagerFragment extends BaseFragment {
 
-    private String[] mTitle = new String[]{"Simple","Swipe Left & Right","Download & Share"};
-    private String[] mDesc = new String[]{"Simple","Swipe Left & Right","Download & Share"};
+    private String[] mTitle = new String[]{"Simple UI","Swipe Left & Right","Download & Share"};
+    private String[] mDesc = new String[]{"Simple and Easy to use","Swipe Left & Right to select Category and many more","Download & Share only one Click away"};
     private int[] mImages = new int[]{R.drawable.music, R.drawable.education, R.drawable.travel};
     private ImageView mImgHelp;
     private TextView mTxtTitle, mTxtDesc;
