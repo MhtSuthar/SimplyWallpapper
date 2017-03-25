@@ -4,10 +4,12 @@ import android.app.WallpaperManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -34,6 +37,10 @@ import com.wall.utilz.AnimationUtils;
 import com.wall.utilz.Constants;
 import com.wall.utilz.FileUtilz;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -46,6 +53,7 @@ public class WallDetailActivity extends BaseActivity {
     private String mImageUrl;
     private LinearLayout mLinBottom;
     private int mWhichType = -1;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +82,7 @@ public class WallDetailActivity extends BaseActivity {
         mWall = (Wallpaper.Hit) getIntent().getSerializableExtra(Constants.BUNDLE_WALL_ITEM);
         mImageUrl = mWall.getWebformatURL().replace("_640", "_960");
         AnimationUtils.animateIn(mLinBottom);
+        mProgressBar = (ProgressBar) findViewById(R.id.mini_progress);
     }
 
     private void fullScreen() {
@@ -113,8 +122,9 @@ public class WallDetailActivity extends BaseActivity {
         }
     }
 
-    void downloadImage(String url, String dirPath, String fileName){
+    void downloadImage(String url, final String dirPath, String fileName){
         if(isOnline(WallDetailActivity.this)) {
+            mProgressBar.setVisibility(View.VISIBLE);
             AndroidNetworking.download(url, dirPath, fileName)
                     .setTag("downloadTest")
                     .setPriority(Priority.MEDIUM)
@@ -123,6 +133,8 @@ public class WallDetailActivity extends BaseActivity {
                         @Override
                         public void onProgress(long bytesDownloaded, long totalBytes) {
                             // do anything with progress
+                            mProgressBar.setMax((int) totalBytes);
+                            mProgressBar.setProgress((int) bytesDownloaded);
                             Log.d(TAG, "onProgress() called with: bytesDownloaded = [" + bytesDownloaded + "], totalBytes = [" + totalBytes + "]");
                         }
                     })
@@ -130,8 +142,17 @@ public class WallDetailActivity extends BaseActivity {
                         @Override
                         public void onDownloadComplete() {
                             // do anything after completion
+                            mProgressBar.setVisibility(View.GONE);
                             Log.d(TAG, "onDownloadComplete() called");
-                            showToast("Download Complete");
+                            Snackbar bar = Snackbar.make(mImgWall, "Download Complete, Go to download folder", Snackbar.LENGTH_LONG)
+                                    .setAction("Go  ", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            openFolder(dirPath);
+                                        }
+                                    });
+
+                            bar.show();
                         }
 
                         @Override
@@ -143,6 +164,13 @@ public class WallDetailActivity extends BaseActivity {
         }else{
             showSnackbar(mImgWall, getString(R.string.no_internet_connection));
         }
+    }
+
+    private void openFolder(String dirPath) {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        Uri uri = Uri.parse(dirPath);
+        intent.setDataAndType(uri, "text/csv");
+        startActivity(Intent.createChooser(intent, "Open folder"));
     }
 
     public void onSetWallpaper(View view){

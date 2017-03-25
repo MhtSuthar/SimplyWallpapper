@@ -12,9 +12,8 @@
     <string name="banner_home_footer">ca-app-pub-8430026697006000/9448791371</string>
     <string name="interstitial_full_screen">ca-app-pub-8430026697006000/1925524570</string>
     
-    https://www.norio.be/android-feature-graphic-generator/
-    https://resizeappicon.com/
-
+    <!--https://www.norio.be/android-feature-graphic-generator/
+    https://resizeappicon.com/-->
 
     <string-array name="category_list">
         <item>fashion</item>
